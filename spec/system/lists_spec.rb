@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe '投稿のテスト' do
   let!(:list) { create(:list,title:'hoge',body:'body') }
-  describe 'トップ画面への遷移' do
+  describe 'トップ画面(top_path)への遷移' do
     before do
       visit top_path
     end
@@ -18,7 +18,7 @@ describe '投稿のテスト' do
     end
   end
   
-  describe '投稿画面のテスト' do
+  describe '投稿画面(new_list_path)のテスト' do
     before do
       visit new_list_path
     end
@@ -39,3 +39,14 @@ describe '投稿のテスト' do
     end
   end
   
+  describe '一覧画面のテスト' do
+    before do
+      visit lists_path
+    end
+    context '一覧の表示とリンクの確認' do
+      it '一覧表示画面に投稿されたものが表示されているか' do
+        expect(page).to have_content list.title
+        expect(page).to have_link list.title
+      end
+    end
+  end
